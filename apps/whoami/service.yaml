@@ -6,7 +6,8 @@ metadata:
     app: whoami
   annotations:
     tailscale.com/expose: "true"
-    tailscale.com/hostname: "whowho"
+    tailscale.com/hostname: "whoshe"
+    #tailscale.com/proxy-group: "my-proxy-group"
 spec:
   type: ClusterIP
   selector:
