@@ -4,6 +4,7 @@ metadata:
   name: tnext
   labels:
     app: tnext
+  annotations:
     tailscale.com/expose: "true"
 spec:
   type: ClusterIP
