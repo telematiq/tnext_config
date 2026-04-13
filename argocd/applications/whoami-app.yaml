@@ -4,17 +4,15 @@ metadata:
   name: whoami-app
   namespace: argocd
 spec:
-  project: tnext
+  project: default
   source:
     repoURL: https://github.com/telematiq/tnext_config.git
     targetRevision: HEAD
     path: apps/whoami
   destination:
     server: https://kubernetes.default.svc
-    namespace: whoami-dev
+    namespace: tnext
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true

@@ -11,7 +11,7 @@ spec:
     path: argocd/applications
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: tnext
   syncPolicy:
     automated:
       prune: true
