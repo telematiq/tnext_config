@@ -1,30 +1,27 @@
-# Revised
 # tnext GitOps Configuration
 
-
-Multi-app platform using ArgoCD with app-of-apps pattern.
+Multi-app platform using ArgoCD with app-of-apps pattern and Helm charts.
 
 ## Repository Structure
 
 ```
 argocd/
   root-app.yaml          # Bootstrap application
-  tnext-appset.yaml      # ApplicationSet for env-based app generation
-  projects/
-    tnext-project.yaml   # AppProject scope
-  applications/          # Standalone apps
+  tnext-project.yaml     # AppProject scope
+  applications/
+    tnext-appset.yaml    # Child ApplicationSet for tnext
 
-apps/
-  tnext/
-    base/                # Base Kustomize manifests
-    overlays/
-      dev/               # Dev environment overlay
-      prod/              # Prod environment overlay
-
+apps/                    # Local app sources
+  tnext/                 # Local Helm chart for tnext
 clusters/
   dev/                   # Dev cluster configuration
-  prod/                  # Prod cluster configuration
 ```
+
+## Applications
+
+- **tnext**: Nginx web server deployed from a local Helm chart in `apps/tnext`
+- **whoami**: containerized whoami service deployed from `apps/whoami`
+- **Environment**: dev
 
 ## Getting Started
 
@@ -37,11 +34,8 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 ### 2. Update cluster URLs
 
-Edit `argocd/tnext-appset.yaml` and replace:
-- `https://dev.k8s.local` → your dev cluster API URL
-- `https://prod.k8s.local` → your prod cluster API URL
-
-Or use `https://kubernetes.default.svc` for same-cluster deployments.
+Edit `argocd/applications/tnext-appset.yaml` and replace:
+- `https://kubernetes.default.svc` → your cluster API URL if different
 
 ### 3. Deploy root application
 
@@ -56,4 +50,4 @@ kubectl get applications -n argocd
 argocd app get argocd-root
 ```
 
-The root app will automatically sync all ApplicationSets and Projects.
+The root app will automatically sync the child ApplicationSet and deploy both `tnext` and `whoami`.
