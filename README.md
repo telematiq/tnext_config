@@ -1,4 +1,6 @@
+# Revised
 # tnext GitOps Configuration
+
 
 Multi-app platform using ArgoCD with app-of-apps pattern.
 

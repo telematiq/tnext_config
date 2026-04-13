@@ -8,9 +8,7 @@ spec:
     - list:
         elements:
           - env: dev
-            cluster: https://dev.k8s.local
-          - env: prod
-            cluster: https://prod.k8s.local
+            cluster: https://kubernetes.default.svc
   template:
     metadata:
       name: 'tnext-{{env}}'
