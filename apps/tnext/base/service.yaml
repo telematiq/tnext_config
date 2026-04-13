@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tnext
+  labels:
+    app: tnext
+spec:
+  type: ClusterIP
+  selector:
+    app: tnext
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5678

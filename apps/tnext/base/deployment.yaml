@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tnext
+  labels:
+    app: tnext
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tnext
+  template:
+    metadata:
+      labels:
+        app: tnext
+    spec:
+      containers:
+        - name: tnext
+          image: hashicorp/http-echo:0.2.3
+          args:
+            - '-text=tnext'
+          ports:
+            - containerPort: 5678

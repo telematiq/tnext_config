@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: tnext-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            cluster: https://dev.k8s.local
+          - env: prod
+            cluster: https://prod.k8s.local
+  template:
+    metadata:
+      name: 'tnext-{{env}}'
+    spec:
+      project: tnext
+      source:
+        repoURL: https://github.com/telematiq/tnext_config.git
+        targetRevision: HEAD
+        path: apps/tnext/overlays/{{env}}
+      destination:
+        server: '{{cluster}}'
+        namespace: 'tnext-{{env}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

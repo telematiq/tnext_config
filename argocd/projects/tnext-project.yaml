@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: tnext
+  namespace: argocd
+spec:
+  description: "Project for tnext application across environments"
+  sourceRepos:
+    - https://github.com/telematiq/tnext_config.git
+  destinations:
+    - namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
