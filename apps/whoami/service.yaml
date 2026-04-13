@@ -6,6 +6,7 @@ metadata:
     app: whoami
   annotations:
     tailscale.com/expose: "true"
+    tailscale.com/hostname: "whowho"
 spec:
   type: ClusterIP
   selector:
